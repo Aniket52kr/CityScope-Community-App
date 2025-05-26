@@ -1,6 +1,6 @@
 # CityPulse - Local Community Feed 🌆
 
-> 🚀 A mini-Twitter for neighborhoods — share, connect, engage locally
+🚀 A mini-Twitter for neighborhoods — share, connect, engage locally
 
 A local community app where users can:
 - ✅ Post updates (recommendations, event announcements, questions)
