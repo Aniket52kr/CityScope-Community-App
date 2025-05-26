@@ -23,7 +23,7 @@ connectDB();
 
 // CORS Settings
 const corsOptions = {
-  origin: [process.env.CLIENT_URL, "https://citypulse-snva.onrender.com"],
+  origin: [process.env.CLIENT_URL, 'http://localhost:3000'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };

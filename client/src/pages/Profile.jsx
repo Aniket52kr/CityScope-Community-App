@@ -3,7 +3,7 @@ import axios from 'axios';
 import ProfileCard from '../components/ProfileCard';
 import FeedList from '../components/FeedList';
 
-const api_url = process.env.REACT_APP_API_URL;
+
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -22,8 +22,8 @@ const Profile = () => {
     setLoading(true);
     setError('');
     try {
-      const userRes = await axios.get(`${api_url}/api/auth/me`, { withCredentials: true });
-      const postRes = await axios.get(`${api_url}/api/posts?author=${userRes.data._id}`, {
+      const userRes = await axios.get('/api/auth/me', { withCredentials: true });
+      const postRes = await axios.get(`/api/posts?author=${userRes.data._id}`, {
         withCredentials: true,
       });
 
@@ -54,7 +54,7 @@ const Profile = () => {
 
   try {
     const res = await axios.put(
-      `${api_url}/api/users/profile`,  // pass user id here
+      `/api/users/profile`,  // pass user id here
       { name, bio, avatar },
       { withCredentials: true }
     );

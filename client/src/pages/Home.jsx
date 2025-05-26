@@ -4,7 +4,6 @@ import PostForm from '../components/PostForm';
 import FeedList from '../components/FeedList';
 import axios from 'axios';
 
-const api_url = process.env.REACT_APP_API_URL;
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -12,7 +11,7 @@ const Home = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get(`${api_url}/api/posts`, { withCredentials: true });
+      const res = await axios.get('/api/posts', { withCredentials: true });
       setPosts(res.data);
     } catch (err) {
       console.error('Failed to fetch posts');
@@ -27,7 +26,7 @@ const Home = () => {
 
   const handleDeletePost = async (postId) => {
     try {
-      await axios.delete(`${api_url}/api/posts/${postId}`, { withCredentials: true });
+      await axios.delete(`/api/posts/${postId}`, { withCredentials: true });
       setPosts(prev => prev.filter(post => post._id !== postId));
     } catch (err) {
       console.error('Failed to delete post:', err);

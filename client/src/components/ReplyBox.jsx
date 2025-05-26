@@ -6,7 +6,6 @@ const ReplyBox = ({ postId, replies }) => {
   const [replyList, setReplyList] = useState(replies || []);
   const [isSending, setIsSending] = useState(false);
  
-  const api_url = process.env.REACT_APP_API_URL;
   const handleReply = async () => {
     if (!replyText.trim()) return;
 
@@ -14,7 +13,7 @@ const ReplyBox = ({ postId, replies }) => {
 
     try {
       const response = await axios.post(
-        `${api_url}/api/posts/${postId}/reply`,
+        `/api/posts/${postId}/reply`,
         { content: replyText },
         { withCredentials: true }
       );
