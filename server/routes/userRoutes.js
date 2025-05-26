@@ -5,11 +5,12 @@ import {
   getAllUsers,
 } from '../controllers/userController.js';
 import { protect } from '../middleware/authMiddleware.js';
+import { isAuthenticated } from '../middleware/isAuthenticated.js';
 
 const router = express.Router();
 
-router.get('/', protect, getAllUsers);
-router.get('/:id', protect, getUserProfile);
-router.put('/profile', protect, updateUserProfile);
+router.get('/', protect, isAuthenticated ,getAllUsers);
+router.get('/:id', protect, isAuthenticated ,getUserProfile);
+router.put('/profile', protect, isAuthenticated , updateUserProfile);
 
 export default router;

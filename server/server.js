@@ -6,13 +6,11 @@ import morgan from 'morgan';
 import connectDB from './config/db.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
-
 // Route imports
 import authRoutes from './routes/authRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
-
 
 // Load environment variables
 dotenv.config();
@@ -25,18 +23,14 @@ connectDB();
 
 // CORS Settings
 const corsOptions = {
-  origin: ["https://citypulse-snva.onrender.com" ,process.env.CLIENT_URL],
+  origin: [process.env.CLIENT_URL, "https://citypulse-snva.onrender.com"],
   credentials: true,
-  optionsSuccessStatus: 200,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 
 app.use(cors(corsOptions));
-
-
-
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
 app.use(cookieParser());
 app.use(morgan('dev'));
 
@@ -45,8 +39,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/upload', uploadRoutes);
-
-
 
 // Health Check Route
 app.get('/', (req, res) => {
@@ -62,10 +54,8 @@ app.get('/', (req, res) => {
   });
 });
 
-
 // Global Error Handler
 app.use(errorHandler);
-
 
 // Start Server
 app.listen(PORT, () => {
