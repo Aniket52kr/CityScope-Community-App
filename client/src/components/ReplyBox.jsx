@@ -6,7 +6,7 @@ const ReplyBox = ({ postId, replies }) => {
   const [replyList, setReplyList] = useState(replies || []);
   const [isSending, setIsSending] = useState(false);
  
-  const api_url = Process.env.REACT_APP_API_URL;
+  const api_url = process.env.REACT_APP_API_URL;
   const handleReply = async () => {
     if (!replyText.trim()) return;
 
