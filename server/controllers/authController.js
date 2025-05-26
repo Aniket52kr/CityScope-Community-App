@@ -42,6 +42,40 @@ export const registerUser = async (req, res) => {
 };
 
 // Login a user and set JWT as HTTP-only cookie
+// export const loginUser = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+
+//     // Find user by email
+//     const user = await User.findOne({ email });
+
+//     // Validate user and password
+//     if (user && (await user.matchPassword(password))) {
+//       const token = generateToken(user._id);
+
+//       // Set HTTP-only cookie
+//       res.cookie('jwt', token, {
+//         httpOnly: true,
+//         secure: process.env.NODE_ENV !== 'development', // HTTPS only in prod
+//         sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'strict',
+//         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+//       });
+
+//       // Send user data without token
+//       return res.json({
+//         _id: user._id,
+//         name: user.name,
+//         email: user.email,
+//       });
+//     } else {
+//       return res.status(401).json({ message: 'Invalid email or password' });
+//     }
+//   } catch (error) {
+//     console.error('[Auth] Login failed:', error.message);
+//     return res.status(500).json({ message: 'Login failed', error: error.message });
+//   }
+// };
+
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -49,32 +83,36 @@ export const loginUser = async (req, res) => {
     // Find user by email
     const user = await User.findOne({ email });
 
-    // Validate user and password
-    if (user && (await user.matchPassword(password))) {
-      const token = generateToken(user._id);
-
-      // Set HTTP-only cookie
-      res.cookie('jwt', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development', // HTTPS only in prod
-        sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'strict',
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-      });
-
-      // Send user data without token
-      return res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-      });
-    } else {
+    // Check if user exists and password is correct
+    if (!user || !(await user.matchPassword(password))) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
+
+    // Generate JWT token
+    const token = generateToken(user._id);
+
+    // Set cookie with secure, cross-origin settings
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development', // true in production
+      sameSite: process.env.NODE_ENV === 'development' ? 'Lax' : 'None', // 'None' required for cross-origin
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    // Send user data (exclude password and token)
+    return res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    });
+
   } catch (error) {
     console.error('[Auth] Login failed:', error.message);
     return res.status(500).json({ message: 'Login failed', error: error.message });
   }
 };
+
+
 
 // Get current logged-in user profile
 export const getCurrentUser = async (req, res) => {
