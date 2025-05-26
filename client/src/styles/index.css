@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: Custom utility classes */
+.container {
+  @apply max-w-3xl mx-auto px-4 py-6;
+}
+
+/* Primary button with Twitter blue */
+.btn-primary {
+  @apply text-white font-medium py-2 px-4 rounded transition;
+  background-color: #1DA1F2;
+}
+
+.btn-primary:hover {
+  background-color: #1991db; /* Slightly darker Twitter blue for hover */
+}
+
+/* Secondary button with lighter gray */
+.btn-secondary {
+  @apply text-gray-800 font-medium py-2 px-4 rounded transition;
+  background-color: #E1E8ED; /* Light Twitter gray */
+}
+
+.btn-secondary:hover {
+  background-color: #cfd9de; /* Slightly darker gray for hover */
+}
+
+/* Input fields with Twitter blue border focus */
+.input-text {
+  @apply w-full p-2 border rounded focus:outline-none;
+  border-color: #AAB8C2; /* Twitter light gray border */
+}
+
+.input-text:focus {
+  border-color: #1DA1F2;
+  box-shadow: 0 0 0 2px rgba(29, 161, 242, 0.4); /* subtle blue glow */
+}
+
+/* Badge with Twitter gray background and text */
+.badge {
+  @apply inline-block text-sm px-2 py-1 rounded-full mr-1;
+  background-color: #E1E8ED; /* Twitter light gray */
+  color: #71889b; /* Twitter medium gray */
+}
