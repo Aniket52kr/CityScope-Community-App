@@ -7,6 +7,9 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
+
+const API_BASE = process.env.REACT_APP_API_URL;
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get('/api/auth/me', {
+        const res = await axios.get(`${API_BASE}/api/auth/me`, {
           withCredentials: true,
           params: { _t: Date.now() }, // Prevent caching
         });
@@ -37,7 +40,7 @@ export const AuthProvider = ({ children }) => {
   // Wrap login/register/logout to update user immediately
   const login = (email, password) => {
     return new Promise((resolve, reject) => {
-      axios.post(`${REACT_APP_API_URL}/api/auth/login`, { email, password }, { withCredentials: true })
+      axios.post(`${API_BASE}/api/auth/login`, { email, password }, { withCredentials: true })
         .then(res => {
           setUser(res.data);
           resolve(res.data);
@@ -51,7 +54,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = (name, email, password) => {
     return new Promise((resolve, reject) => {
-      axios.post(`${REACT_APP_API_URL}/api/auth/register`, { name, email, password }, { withCredentials: true })
+      axios.post(`${API_BASE}/api/auth/register`, { name, email, password }, { withCredentials: true })
         .then(res => {
           setUser(res.data);
           resolve(res.data);
@@ -64,7 +67,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    return axios.post(`${REACT_APP_API_URL}/api/auth/logout`, {}, { withCredentials: true })
+    return axios.post(`${API_BASE}/api/auth/logout`, {}, { withCredentials: true })
       .then(() => setUser(null))
       .catch(err => {
         console.error('[Auth] Logout failed:', err.message);
