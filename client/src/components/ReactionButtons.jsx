@@ -10,6 +10,9 @@ const reactionEmojis = {
   angry: '😠',
 };
 
+const api_url = process.env.REACT_APP_API_URL;
+
+
 const ReactionButtons = ({ post }) => {
   const [reactions, setReactions] = useState(post.reactions || []);
   const [selectedType, setSelectedType] = useState(
@@ -26,7 +29,7 @@ const ReactionButtons = ({ post }) => {
     setReactions(updated);
 
     try {
-      await axios.post(`/api/posts/${post._id}/reaction`, { type }, { withCredentials: true });
+      await axios.post(`${api_url}/api/posts/${post._id}/reaction`, { type }, { withCredentials: true });
     } catch (err) {
       alert('Failed to update reaction');
       setReactions(reactions); // rollback
