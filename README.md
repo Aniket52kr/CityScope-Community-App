@@ -49,9 +49,5 @@ Perfect for connecting with your neighborhood in real-time!
 | **Authentication** | JSON Web Tokens (JWT), HTTP-only cookies |
 | **Image Upload** | Cloudinary, Multer |
 
----
 
-## 🧪 Live Demo
-
-🔗 [Live App](https://your-app-url.com )  
 
