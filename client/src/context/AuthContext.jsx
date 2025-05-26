@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   // Wrap login/register/logout to update user immediately
   const login = (email, password) => {
     return new Promise((resolve, reject) => {
-      axios.post('/api/auth/login', { email, password }, { withCredentials: true })
+      axios.post(`${REACT_APP_API_URL}/api/auth/login`, { email, password }, { withCredentials: true })
         .then(res => {
           setUser(res.data);
           resolve(res.data);
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = (name, email, password) => {
     return new Promise((resolve, reject) => {
-      axios.post('/api/auth/register', { name, email, password }, { withCredentials: true })
+      axios.post(`${REACT_APP_API_URL}/api/auth/register`, { name, email, password }, { withCredentials: true })
         .then(res => {
           setUser(res.data);
           resolve(res.data);
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    return axios.post('/api/auth/logout', {}, { withCredentials: true })
+    return axios.post(`${REACT_APP_API_URL}/api/auth/logout`, {}, { withCredentials: true })
       .then(() => setUser(null))
       .catch(err => {
         console.error('[Auth] Logout failed:', err.message);
