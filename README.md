@@ -48,6 +48,3 @@ Perfect for connecting with your neighborhood in real-time!
 | **Backend** | Node.js, Express, MongoDB, Mongoose |
 | **Authentication** | JSON Web Tokens (JWT), HTTP-only cookies |
 | **Image Upload** | Cloudinary, Multer |
-
-
-
