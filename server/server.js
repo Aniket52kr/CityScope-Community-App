@@ -25,7 +25,7 @@ connectDB();
 
 // CORS Settings
 const corsOptions = {
-  origin: process.env.CLIENT_URL,
+  origin: ["https://citypulse-snva.onrender.com" ,process.env.CLIENT_URL],
   credentials: true,
   optionsSuccessStatus: 200,
 };
